@@ -16,7 +16,7 @@ export const products = [
     price: 20.33, 
     discountRate:-10, 
     discount:22.59 , 
-     product_name: ' Tie-Neck' },
+    product_name: ' Tie-Neck' },
   { 
     id: 2, 
     image: Tie_Neck,

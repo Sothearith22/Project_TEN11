@@ -16,14 +16,13 @@ import DetailShopwoman from "../components/Shop/ShopWoman/DetailShopwoman";
 const Approutes = () => {
   return (
     <Routes>
-      <Route
-        path="/" element={<Home/>}/>
+      <Route path="/" element={<Home/>}/>
 
       <Route path="/about" element={<About />} />
 
       <Route path="/product/men" element={<ShopMen />} />
       <Route path="/product/woman" element={<ShopWoman />} />
-
+              {/* Detail Page */}
       <Route path="/product/detail/:id" element={<ProductDetail />} />
       <Route path="/product/men/detail/:id" element={<DetailShopMen />} />
       <Route path="/product/woman/detail/:id" element={<DetailShopwoman />} />

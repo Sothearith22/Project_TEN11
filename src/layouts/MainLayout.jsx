@@ -21,3 +21,4 @@ const MainLayout = ({ toggleCart, cartOpen }) => {
 };
 
 export default MainLayout;
+

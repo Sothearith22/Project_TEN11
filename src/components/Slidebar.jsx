@@ -10,12 +10,14 @@ import slide2 from "../assets/img/ten11_slide2.jpg";
 import slide3 from "../assets/img/ten11_slide3.jpg";
 import slide4 from "../assets/img/ten11_slide4.jpg";
 import slide5 from "../assets/img/ten11_slide5.jpg";
+import slide6 from "../assets/img/slide6.png"
 const data = [
   { id: 1, src: slide1 },
   { id: 2, src: slide2 },
   { id: 3, src: slide3 },
   { id: 4, src: slide4 },
   { id: 5, src: slide5},
+  {id : 6,src: slide6 }
 ];
 
 export default function Slidebar() {
