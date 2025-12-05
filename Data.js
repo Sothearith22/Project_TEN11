@@ -12,28 +12,28 @@ import Tie_Neck from './src/assets/image/card1.jpg'
 export const products = [
   { 
     id: 1, 
-    image: MenURLChange, 
+    imageURL: MenURLChange, 
     price: 20.33, 
     discountRate:-10, 
     discount:22.59 , 
     product_name: ' Tie-Neck' },
   { 
     id: 2, 
-    image: Tie_Neck,
+    imageURL: Tie_Neck,
      price: 15.67,
      discountRate:-20,
      discount:19.59, 
      product_name: 'Tie-Neck' },
   { 
     id: 3,
-     image: Men2URLChange, 
+     imageURL: Men2URLChange, 
      price: 22.89,
      discountRate:25,
      discount: 27.59,
      product_name: ' Sneakers' },
   { 
     id: 4, 
-    image: women4Change, 
+    imageURL: women4Change, 
     price: 18.55,
     discountRate:-15, 
     discount:18.66,

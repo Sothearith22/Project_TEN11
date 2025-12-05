@@ -24,7 +24,7 @@ const ProductDetail = () => {
       {/* LEFT IMAGE */}
       <div>
         <img
-          src={product.image}
+          src={product.imageURL}
           alt="Product"
           className="w-full rounded-lg shadow-md mt-10 lg:mt-5"
         />
@@ -42,7 +42,7 @@ const ProductDetail = () => {
           <p className="font-semibold">1 Color Available</p>
           {/* //small image */}
           <img
-            src={product.image}
+            src={product.imageURL}
             alt="Black"
             className="w-20 h-30 object-cover rounded-md mt-2 "
           />

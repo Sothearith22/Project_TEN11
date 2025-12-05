@@ -20,7 +20,7 @@ export const Card = ({ product }) => {
               <div className="w-[90%] mx-auto h-[250px] md:h-[300px] lg:h-[500px] flex items-center justify-center pt-2">
                 <img
                   // src={pro.image}
-                  src={pro.image}
+                  src={pro.imageURL}
                   alt={pro.product_name}
                   className="object-contain w-full h-full"
                 />
