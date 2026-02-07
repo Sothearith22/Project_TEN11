@@ -14,14 +14,14 @@ export const products = [
     id: 1, 
     imageURL: MenURLChange, 
     price: 20.33, 
-    discountRate:-10, 
+    discountRate:10, 
     discount:22.59 , 
     product_name: ' Tie-Neck' },
   { 
     id: 2, 
     imageURL: Tie_Neck,
      price: 15.67,
-     discountRate:-20,
+     discountRate:20,
      discount:19.59, 
      product_name: 'Tie-Neck' },
   { 
@@ -35,7 +35,7 @@ export const products = [
     id: 4, 
     imageURL: women4Change, 
     price: 18.55,
-    discountRate:-15, 
+    discountRate:15, 
     discount:18.66,
     product_name: 'Knitted Straight Leg Trousers' 
 },
@@ -148,7 +148,7 @@ import Men2URL from './src/assets/image/Men2URL.jpg'
 import Men2URLChange from './src/assets/image/Men2URLChange.jpg'
 import Men3URL from './src/assets/image/Men4URL.jpg'
 import Men3URLChange from './src/assets/image/Men4URLChange.jpg'
-import { fromJSON } from 'postcss';
+
 
 export const Product_Men = [
     {   

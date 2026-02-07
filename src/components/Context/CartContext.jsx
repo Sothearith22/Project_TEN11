@@ -1,6 +1,7 @@
 
 import React, { createContext, useState } from "react";
 import Swal from "sweetalert2";
+
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
@@ -16,7 +17,7 @@ export const CartProvider = ({ children }) => {
       // size: `${product.size}`
       icon: "success",
       showConfirmButton: false,
-      timer: 2000,
+      timer: 1000,
       toast: true,
       position: "top-end",
     });

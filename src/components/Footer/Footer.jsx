@@ -43,7 +43,7 @@ const Footer = () => {
             <li className="flex items-center gap-2"><IoShieldCheckmarkSharp /> Privacy Policy</li>
             <li className="flex items-center gap-2"><MdOutlinePolicy /> FAQs & Guides</li>
             <li className="flex items-center gap-2"><FaQuestionCircle /> About Us</li>
-            <li className="flex items-center gap-2"><IoStorefrontOutline /> Find a store</li>
+            {/* <li className="flex items-center gap-2"><IoStorefrontOutline /> Find a store</li> */}
           </ul>
         </div>
 
@@ -60,7 +60,7 @@ const Footer = () => {
 
       {/* Footer Bottom */}
       <div className="text-center text-gray-400 mt-10 border-t border-gray-700 pt-4">
-        Powered By TEN11 © 2025
+        Build By Sothearith Developer
       </div>
     </footer>
   );

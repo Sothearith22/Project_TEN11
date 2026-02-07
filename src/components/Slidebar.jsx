@@ -1,64 +1,129 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Link } from "react-router-dom";
+import { Autoplay, Pagination, Navigation, EffectFade } from "swiper/modules";
+
+// Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { Link } from "react-router-dom";
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import "swiper/css/effect-fade";
+
+// Images
 import slide1 from "../assets/img/ten11_slide1.jpg";
 import slide2 from "../assets/img/ten11_slide2.jpg";
 import slide3 from "../assets/img/ten11_slide3.jpg";
 import slide4 from "../assets/img/ten11_slide4.jpg";
 import slide5 from "../assets/img/ten11_slide5.jpg";
-import slide6 from "../assets/img/slide6.png"
+import slide6 from "../assets/img/slide6.png";
+
 const data = [
   { id: 1, src: slide1 },
   { id: 2, src: slide2 },
   { id: 3, src: slide3 },
   { id: 4, src: slide4 },
-  { id: 5, src: slide5},
-  {id : 6,src: slide6 }
+  { id: 5, src: slide5 },
+  { id: 6, src: slide6 },
 ];
 
 export default function Slidebar() {
   return (
-    <div className="w-full">
+    <div className="w-full relative group">
+      {/* TAILWIND CUSTOMIZATION FOR SWIPER:
+        1. [&_.swiper-button-prev]: Styles the PREV arrow
+        2. [&_.swiper-pagination-bullet]: Styles the dots
+        3. md:[&_...]: Applies styles only on Desktop
+      */}
       <Swiper
         spaceBetween={0}
         centeredSlides={true}
+        effect="fade"
+        loop={true}
         autoplay={{
-          delay: 3000,
+          delay: 4000,
           disableOnInteraction: false,
         }}
         pagination={{
           clickable: true,
         }}
         navigation={true}
-        modules={[Autoplay, Pagination, Navigation]}
-        className="mySwiper"
+        modules={[Autoplay, Pagination, Navigation, EffectFade]}
+        className="w-full 
+          /* --- Navigation Arrows (Hidden on Mobile, Visible on Desktop) --- */
+          [&_.swiper-button-next]:hidden md:[&_.swiper-button-next]:flex
+          [&_.swiper-button-prev]:hidden md:[&_.swiper-button-prev]:flex
+          
+          /* Arrow Styling */
+          [&_.swiper-button-next]:w-12 [&_.swiper-button-next]:h-12
+          [&_.swiper-button-prev]:w-12 [&_.swiper-button-prev]:h-12
+          [&_.swiper-button-next]:bg-white/10 [&_.swiper-button-prev]:bg-white/10
+          [&_.swiper-button-next]:backdrop-blur-sm [&_.swiper-button-prev]:backdrop-blur-sm
+          [&_.swiper-button-next]:rounded-full [&_.swiper-button-prev]:rounded-full
+          [&_.swiper-button-next]:text-white [&_.swiper-button-prev]:text-white
+          [&_.swiper-button-next]:after:text-xl [&_.swiper-button-prev]:after:text-xl
+          [&_.swiper-button-next]:after:font-bold [&_.swiper-button-prev]:after:font-bold
+          
+          /* Hover Effects */
+          hover:[&_.swiper-button-next]:bg-white hover:[&_.swiper-button-next]:text-black
+          hover:[&_.swiper-button-prev]:bg-white hover:[&_.swiper-button-prev]:text-black
+          
+          /* --- Pagination Dots --- */
+          [&_.swiper-pagination-bullet]:bg-white/70 
+          [&_.swiper-pagination-bullet]:w-2 [&_.swiper-pagination-bullet]:h-2
+          [&_.swiper-pagination-bullet-active]:w-6 [&_.swiper-pagination-bullet-active]:rounded-md
+          [&_.swiper-pagination-bullet-active]:bg-white
+        "
       >
         {data.map((item, index) => (
           <SwiperSlide key={item.id}>
-            <div className="w-full h-[35vh] pt-5 sm:h-[300px] md:h-[500px] lg:h-[110vh] lg:pt-5 mt-8">
+            {/* Responsive Height Strategy:
+               - h-[50vh]: Mobile (Small, easy to scroll past)
+               - md:h-[70vh]: Tablet
+               - lg:h-[85vh]: Desktop (Full Hero experience)
+            */}
+            <div className="relative w-full h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[85vh]">
+              
+              {/* Image */}
               <img
                 src={item.src}
                 alt={`Slide ${index + 1}`}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-top"
               />
-              {/* btn in slide */}
-              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-3 w-full max-w-[300px] px-4">
-                <Link
-                  to="/product/men"
-                  className="flex-1 bg-white text-black px-3 py-2.5 text-center font-bold text-sm rounded-md hover:bg-gray-100 transition shadow-md"
-                >
-                  SHOP MEN
-                </Link>
-                <Link
-                  to="/product/woman"
-                  className="flex-1 bg-white text-black px-3 py-2.5 text-center font-bold text-sm rounded-md hover:bg-gray-100 transition shadow-md"
-                >
-                  SHOP WOMAN
-                </Link>
+
+              {/* Dark Gradient Overlay for text readability */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+
+              {/* Content Wrapper */}
+              <div className="absolute bottom-10 sm:bottom-16 md:bottom-24 w-full px-4 sm:px-10 flex flex-col items-center text-center">
+                
+                {/* Optional Title (Uncomment if needed) */}
+                {/* <h2 className="text-white text-3xl md:text-5xl font-bold mb-4 drop-shadow-lg tracking-wider">
+                  NEW ARRIVALS
+                </h2> */}
+
+                {/* Buttons Grid */}
+                <div className="grid grid-cols-2 gap-3 sm:gap-5 w-full max-w-[320px] sm:max-w-[450px]">
+                  <Link
+                    to="/product/men"
+                    className="group relative overflow-hidden bg-white text-black 
+                    py-3 sm:py-4 px-4 
+                    text-xs sm:text-sm md:text-base font-bold tracking-widest uppercase 
+                    transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,255,255,0.4)]"
+                  >
+                    <span className="relative z-10">Shop Men</span>
+                  </Link>
+
+                  <Link
+                    to="/product/woman"
+                    className="group relative overflow-hidden border border-white text-white 
+                    py-3 sm:py-4 px-4 
+                    text-xs sm:text-sm md:text-base font-bold tracking-widest uppercase 
+                    transition-all duration-300 hover:bg-white hover:text-black"
+                  >
+                    <span className="relative z-10">Shop Women</span>
+                  </Link>
+                </div>
+
               </div>
             </div>
           </SwiperSlide>
