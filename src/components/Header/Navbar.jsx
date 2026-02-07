@@ -1,279 +1,280 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-// import { menu } from "../../../Data";
-import {MdNotifications,MdOutlineMenu,MdPerson,MdSearch,MdOutlineClose,MdShoppingBag,} from "react-icons/md";
+
+import { menu as navLinks } from "../../../Data"; 
+import {
+  MdNotifications,
+  MdOutlineMenu,
+  MdPerson,
+  MdSearch,
+  MdOutlineClose,
+  MdShoppingBag,
+  MdDelete
+} from "react-icons/md";
 import { CartContext } from "../Context/CartContext";
 
-
-const Navbar = ({ toggleCart }) => {
+const Navbar = () => {
   const { cart } = useContext(CartContext);
-  const [menu, setmenu] = useState(false);
-  const [search, setsearch] = useState(false);
-  const [notify, setnotify] = useState(false);
-  const [loggedIn, setloggedIn] = useState(false);
-  const [shopping, setShopping] = useState(false)
+
+  // State Management
+  const [showMenu, setShowMenu] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
+  const [showNotify, setShowNotify] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  const [showCart, setShowCart] = useState(false);
+
+  // Helper to close everything (prevents overlapping sidebars)
+  const closeAll = () => {
+    setShowMenu(false);
+    setShowSearch(false);
+    setShowNotify(false);
+    setShowLogin(false);
+    setShowCart(false);
+  };
+
+  // Toggle handlers that ensure other panels close
+  const toggleState = (setter, currentState) => {
+    closeAll();
+    if (!currentState) setter(true);
+  };
 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-gray-800 z-50 shadow-md">
-      {/* --- Navbar Bar --- */}
-      <div className="flex items-center justify-between h-[60px] sm:h-[70px] px-3 sm:px-6 md:px-8">
-        {/* Left: Menu Button */}
-        <button
-          className="text-3xl text-white focus:outline-none"
-          onClick={() => setmenu(!menu)}
-        >
-          {menu ? <MdOutlineClose /> : <MdOutlineMenu />}
-        </button>
-
-        {/* Center: Logo */}
-        <button 
-          // to={"/"}
-          className="font-extrabold text-xl sm:text-2xl md:text-3xl text-white text-center select-none"
-         
-        >
-          TEN ELEVEN
-        </button>
-
-        {/* Right: Icons */}
-        <div className="flex items-center gap-2 sm:gap-3 md:gap-4 px-2 sm:px-4">
+    <>
+      <nav className="fixed top-0 left-0 w-full bg-gray-800 z-50 shadow-md">
+        {/* --- Top Navbar Bar --- */}
+        <div className="flex items-center justify-between h-[60px] sm:h-[70px] px-4 sm:px-6 md:px-8 relative z-50 bg-gray-800">
+          
+          {/* Left: Menu Button */}
           <button
-            className="text-2xl text-white p-1 sm:p-2 rounded hover:bg-white/10"
-            onClick={() => setsearch(!search)}
+            className="text-3xl text-white focus:outline-none hover:text-green-400 transition"
+            onClick={() => toggleState(setShowMenu, showMenu)}
           >
-            <MdSearch />
-          </button>
-          <button
-            className="text-2xl text-white p-1 sm:p-2 rounded hover:bg-white/10"
-            onClick={() => setnotify(!notify)}
-          >
-            <MdNotifications />
+            {showMenu ? <MdOutlineClose /> : <MdOutlineMenu />}
           </button>
 
-          <button
-            className="text-2xl text-white p-1 sm:p-2 rounded hover:bg-white/10"
-            onClick={() => setloggedIn(!loggedIn)}
+          {/* Center: Logo */}
+          <Link
+            to="/"
+            className="font-extrabold text-xl sm:text-2xl md:text-3xl text-white text-center select-none tracking-wider"
           >
-            <MdPerson />
-          </button>
-          <li className="w-[30%] flex items-center justify-evenly relative">
-              <MdShoppingBag
-                className="text-xl cursor-pointer hover:scale-110 text-white transition-transform duration-300"
-                onClick={toggleCart}
-              />
-              {cart.length > 0 && (
-                <span className="absolute -top-1 left-5 bg-red-600  text-white text-xs w-3 h-3 flex items-center justify-center rounded-full">
-                   {cart.length}
-                </span>
-               )} 
-            </li>
-        </div>
-      </div>
+            TEN ELEVEN
+          </Link>
 
-      {/* --- MENU SLIDE LEFT --- */}
-      <div
-        className={`fixed top-0 left-0 h-screen bg-white text-black z-50 transform transition-transform duration-300 ease-in-out 
-          ${menu ? "translate-x-0" : "-translate-x-full"
-          } w-[85%] sm:w-[70%] md:w-[50%] lg:w-[30%]`}
-      >
-        <div className="flex flex-col h-full">
-          <div className="flex items-center justify-between px-4 py-3 border-b border-gray-600">
-            <h2 className="text-lg font-semibold">Menu</h2>
+          {/* Right: Icons */}
+          <div className="flex items-center gap-2 sm:gap-4">
+            {/* Search */}
             <button
-              onClick={() => setmenu(false)}
-              className="text-2xl hover:text-green-300"
+              className="text-2xl text-white p-2 rounded-full hover:bg-white/10 transition"
+              onClick={() => toggleState(setShowSearch, showSearch)}
             >
-              <MdOutlineClose />
+              <MdSearch />
             </button>
-          </div>
-          {/* menu slide left */}
-          <div className="flex justify-center items-center p-5 text-xl font-semibold bg-white">
-            <div className="w-full h-full bg-green-500/50 lg:text-2xl text-black">
-              {/* {menu.map((p) => (
-                <div  className="p-2 hover:underline">
-                  <Link to={p.url}>{p.menu}</Link>
-                </div>
-              ))} */}
+
+            {/* Notification */}
+            <button
+              className="text-2xl text-white p-2 rounded-full hover:bg-white/10 transition"
+              onClick={() => toggleState(setShowNotify, showNotify)}
+            >
+              <MdNotifications />
+            </button>
+
+            {/* Profile / Login */}
+            <button
+              className="text-2xl text-white p-2 rounded-full hover:bg-white/10 transition"
+              onClick={() => toggleState(setShowLogin, showLogin)}
+            >
+              <MdPerson />
+            </button>
+
+            {/* Cart */}
+            <div className="relative">
+              <button 
+                className="text-2xl text-white p-2 rounded-full hover:bg-white/10 transition"
+                onClick={() => toggleState(setShowCart, showCart)}
+              >
+                <MdShoppingBag />
+              </button>
+              {cart.length > 0 && (
+                <span className="absolute top-0 right-0 bg-red-600 text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full pointer-events-none">
+                  {cart.length}
+                </span>
+              )}
             </div>
           </div>
-
         </div>
-      </div>
 
-      {/* MENU OVERLAY */}
-      <div
-        className={`fixed inset-0 bg-black/40 backdrop-blur-sm transition-all duration-300 z-40 ${menu ? "opacity-100 visible" : "opacity-0 invisible"
+        {/* ==============================
+            SEARCH BAR (Slide Down) 
+           ============================== */}
+        <div
+          className={`absolute top-0 left-0 w-full bg-white h-[70px] flex items-center justify-center transition-transform duration-300 ease-in-out z-40 border-b ${
+            showSearch ? "translate-y-[60px] sm:translate-y-[70px]" : "-translate-y-full"
           }`}
-        onClick={() => setmenu(false)}
-      ></div>
-
-      {/* --- SEARCH SLIDE DOWN --- */}
-      <div
-        className={`fixed top-0 left-0 w-full bg-white text-black h-[60px] sm:h-[70px] flex items-center justify-center transition-transform duration-300 z-50 border-b border-gray-300 ${search ? "translate-y-0" : "-translate-y-full"
-          }`}
-      >
-        <div className="flex items-center justify-between w-[90%] sm:w-[80%] md:w-[60%] lg:w-[50%] border-b border-gray-300 pb-1">
-          <input
-            type="text"
-            className="flex-1 bg-transparent text-gray-800 placeholder-gray-500 text-base sm:text-lg outline-none"
-            placeholder="What are you searching for?"
-          />
-          <div className="flex items-center gap-3">
-            <MdSearch className="text-2xl text-gray-600 cursor-pointer hover:text-black transition-colors" />
+        >
+          <div className="flex items-center w-[90%] md:w-[60%] border-b-2 border-gray-300 pb-1">
+            <input
+              type="text"
+              className="flex-1 bg-transparent text-gray-800 text-lg outline-none px-2"
+              placeholder="What are you searching for?"
+              autoFocus={showSearch}
+            />
+            <MdSearch className="text-2xl text-gray-500" />
             <MdOutlineClose
-              className="text-2xl text-gray-600 cursor-pointer hover:text-black transition-colors"
-              onClick={() => setsearch(false)}
+              className="text-2xl text-gray-500 cursor-pointer ml-4 hover:text-red-500"
+              onClick={() => setShowSearch(false)}
             />
           </div>
         </div>
-      </div>
-      {/* --- SLIDE RIGHT SHOPPING BAG --- */}
+      </nav>
+
+      {/* ==============================
+          SHARED OVERLAY (Backdrop)
+          Closes any open sidebar when clicked
+         ============================== */}
       <div
-        className={`fixed top-0 right-0 h-screen bg-white text-black shadow-lg z-50 transform transition-transform duration-300 ease-in-out ${shopping ? "translate-x-0" : "translate-x-full"
-          } w-[90%] sm:w-[70%] md:w-[45%] lg:w-[25%]`}
+        className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-40 transition-opacity duration-300 ${
+          showMenu || showNotify || showCart || showLogin
+            ? "opacity-100 visible"
+            : "opacity-0 invisible pointer-events-none"
+        }`}
+        onClick={closeAll}
+      ></div>
+
+      {/* ==============================
+          LEFT MENU SIDEBAR
+         ============================== */}
+      <div
+        className={`fixed top-0 left-0 h-full bg-white text-black z-50 transform transition-transform duration-300 shadow-2xl w-[80%] sm:w-[50%] md:w-[35%] lg:w-[25%] ${
+          showMenu ? "translate-x-0" : "-translate-x-full"
+        }`}
       >
-        {/* Header */}
-        <div className="flex items-center justify-between px-4 py-3 border-b border-gray-300">
-          <h2 className="text-lg font-semibold">Your Shopping Bag</h2>
-          <button
-            onClick={() => setShopping(false)}
-            className="text-2xl hover:text-red-500 transition-colors"
-          >
+        <div className="flex items-center justify-between px-5 py-4 border-b">
+          <h2 className="text-xl font-bold">Menu</h2>
+          <button onClick={() => setShowMenu(false)} className="text-2xl hover:text-red-500">
+            <MdOutlineClose />
+          </button>
+        </div>
+        <div className="p-5 flex flex-col gap-4 text-lg font-medium">
+          {navLinks && navLinks.map((item, index) => (
+            <Link
+              key={index}
+              to={item.url}
+              onClick={closeAll}
+              className="p-2 hover:bg-gray-100 rounded hover:text-green-600 transition"
+            >
+              {item.menu}
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      {/* ==============================
+          RIGHT CART SIDEBAR
+         ============================== */}
+      <div
+        className={`fixed top-0 right-0 h-full bg-white text-black z-50 transform transition-transform duration-300 shadow-2xl w-[85%] sm:w-[60%] md:w-[40%] lg:w-[30%] ${
+          showCart ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <div className="flex items-center justify-between px-5 py-4 border-b">
+          <h2 className="text-xl font-bold">Shopping Bag ({cart.length})</h2>
+          <button onClick={() => setShowCart(false)} className="text-2xl hover:text-red-500">
             <MdOutlineClose />
           </button>
         </div>
 
-        <div className="flex gap-4 items-center border-b border-gray-200 pb-3">
-      <img
-        src="https://zandokh.com/image/catalog/banner/2025/ZANDO/October/ten11%20banner%20app.jpg"
-        alt="Item"
-        className="w-20 h-20 object-cover rounded"
-      />
-      <div className="flex-1">
-        <h3 className="font-semibold">TEN11 T-Shirt</h3>
-        <p className="text-gray-500 text-sm">Size: M</p>
-        <p className="font-semibold">$29.99</p>
+        {/* Cart Items Area */}
+        <div className="p-4 h-[calc(100vh-140px)] overflow-y-auto">
+            {/* Example Static Item (Replace with cart.map in future) */}
+            <div className="flex gap-4 items-center border-b pb-4 mb-4">
+              <img
+                src="https://zandokh.com/image/catalog/banner/2025/ZANDO/October/ten11%20banner%20app.jpg"
+                alt="Item"
+                className="w-20 h-24 object-cover rounded"
+              />
+              <div className="flex-1">
+                <h3 className="font-semibold line-clamp-1">TEN11 Oversized T-Shirt</h3>
+                <p className="text-gray-500 text-sm">Size: M</p>
+                <p className="font-bold mt-1">$29.99</p>
+              </div>
+              <button className="text-red-500 hover:text-red-700 text-xl p-2">
+                <MdDelete />
+              </button>
+            </div>
+        </div>
+
+        {/* Footer Total */}
+        <div className="absolute bottom-0 left-0 w-full bg-gray-50 border-t p-4">
+          <div className="flex justify-between mb-4 font-bold text-lg">
+            <span>Subtotal:</span>
+            <span>$29.99</span>
+          </div>
+          <button className="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition">
+            CHECKOUT
+          </button>
+        </div>
       </div>
-      <button className="text-red-600 hover:text-red-800">
-        <MdOutlineClose />
-      </button>
-    </div>
-    </div>
-      {/* SHOPPING OVERLAY */}
-      <div
-        className={`fixed inset-0 bg-black/40 backdrop-blur-sm transition-all duration-300 z-40 ${shopping ? "opacity-100 visible" : "opacity-0 invisible"
-          }`}
-        onClick={() => setShopping(false)}
-      ></div>
 
-
-      {/* SEARCH OVERLAY */}
+      {/* ==============================
+          RIGHT NOTIFICATION SIDEBAR
+         ============================== */}
       <div
-        className={`fixed inset-0 bg-black/40 backdrop-blur-sm transition-all duration-200 z-40 ${search ? "opacity-100 visible" : "opacity-0 invisible"
-          }`}
-        onClick={() => setsearch(false)}
-      ></div>
-
-      {/* --- NOTIFICATION SLIDE RIGHT --- */}
-      <div
-        className={`fixed top-0 p-3 px-5 py-5  right-0 h-screen bg-[#1a1a1a] text-white shadow-lg z-50 transform transition-transform duration-300 ease-in-out ${notify ? "translate-x-0" : "translate-x-full"
-          } w-[90%] sm:w-[70%] md:w-[45%] lg:w-[25%]`}
+        className={`fixed top-0 right-0 h-full bg-[#1a1a1a] text-white z-50 transform transition-transform duration-300 shadow-2xl w-[85%] sm:w-[60%] md:w-[40%] lg:w-[30%] ${
+          showNotify ? "translate-x-0" : "translate-x-full"
+        }`}
       >
-        <div className="flex items-center justify-between px-4 py-3 border-b border-gray-700">
-          <h2 className="text-lg font-semibold">Notifications</h2>
-          <button
-            onClick={() => setnotify(false)}
-            className="text-2xl hover:text-green-500 transition-colors"
-          >
+        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-700">
+          <h2 className="text-xl font-bold">Notifications</h2>
+          <button onClick={() => setShowNotify(false)} className="text-2xl hover:text-green-500">
             <MdOutlineClose />
           </button>
         </div>
 
-        <div className="p-5 space-y-6 overflow-y-auto h-[calc(100vh-70px)]">
-          {/* Example Notification */}
-          <div>
-            <h3 className="font-medium mb-2 flex items-center gap-2">
-              Top of the Class in Style 🎓
-            </h3>
-            <img
-              src="https://zandokh.com/image/catalog/banner/2025/ZANDO/September/50Off_TEN11_Product_List_Mobile%20(2160x1066).jpg"
-              alt="Post Modern"
-              className="rounded-lg mb-3 w-full object-cover"
-            />
-            <p className="text-sm text-gray-300 mb-3">
-              Discover the Post Modern Academy Collection now!
-            </p>
-            <div className="flex gap-2 justify-end pt-2">
-              <button className="border-2 border-white px-3 sm:px-4 py-1.5 sm:py-2 font-semibold hover:bg-white hover:text-black transition">
-                SHOP WOMEN
-              </button>
-              <button className="border-2 border-white px-3 sm:px-4 py-1.5 sm:py-2 font-semibold hover:bg-white hover:text-black transition">
-                SHOP MEN
-              </button>
+        <div className="p-5 space-y-6 overflow-y-auto h-[calc(100vh-80px)]">
+          {/* Notification List (Using Map for cleaner code) */}
+          {[1, 2, 3].map((_, i) => (
+            <div key={i} className="border-b border-gray-800 pb-5">
+              <h3 className="font-medium mb-2 flex items-center gap-2 text-green-400">
+                Top of the Class in Style 🎓
+              </h3>
+              <img
+                src="https://zandokh.com/image/catalog/banner/2025/ZANDO/October/ten11%20banner%20app.jpg"
+                alt="Promo"
+                className="rounded-lg mb-3 w-full object-cover h-40"
+              />
+              <p className="text-sm text-gray-400 mb-3">
+                Discover the Post Modern Academy Collection now!
+              </p>
+              <div className="flex gap-2 justify-end">
+                <button className="text-xs border border-white px-3 py-1.5 hover:bg-white hover:text-black transition">
+                  SHOP WOMEN
+                </button>
+                <button className="text-xs border border-white px-3 py-1.5 hover:bg-white hover:text-black transition">
+                  SHOP MEN
+                </button>
+              </div>
             </div>
-          </div>
-          <div>
-            <h3 className="font-medium mb-2 flex items-center gap-2">
-              Top of the Class in Style 🎓
-            </h3>
-            <img
-              src="https://zandokh.com/image/catalog/banner/2025/ZANDO/October/ten11%20banner%20app.jpg"
-              alt="Post Modern"
-              className="rounded-lg mb-3 w-full object-cover"
-            />
-            <p className="text-sm text-gray-300 mb-3">
-              Discover the Post Modern Academy Collection now!
-            </p>
-            <div className="flex gap-2 justify-end pt-2">
-
-              <button className="border-2 border-white px-3 sm:px-4 py-1.5 sm:py-2 font-semibold hover:bg-white hover:text-black transition">
-                SHOP WOMEN
-              </button>
-
-              <button className="border-2 border-white px-3 sm:px-4 py-1.5 sm:py-2 font-semibold hover:bg-white hover:text-black transition">
-                SHOP MEN
-              </button>
-            </div>
-          </div>
-          <div>
-            <h3 className="font-medium mb-2 flex items-center gap-2">
-              Top of the Class in Style 🎓
-            </h3>
-            <img
-              src="https://zandokh.com/image/catalog/banner/2025/ZANDO/October/Water%20Festival/70WF_Ten11_Main_ProductBanner_Mobile%20(2160x1066).jpg"
-              alt="Post Modern"
-              className="rounded-lg mb-3 w-full object-cover"
-            />
-            <p className="text-sm text-gray-300 mb-3">
-              Discover the Post Modern Academy Collection now!
-            </p>
-            <div className="flex gap-2 justify-end pt-2">
-              <button className="border-2 border-white px-3 sm:px-4 py-1.5 sm:py-2 font-semibold hover:bg-white hover:text-black transition">
-                SHOP WOMEN
-              </button>
-              <button className="border-2 border-white px-3 sm:px-4 py-1.5 sm:py-2 font-semibold hover:bg-white hover:text-black transition">
-                SHOP MEN
-              </button>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
 
-      {/* NOTIFICATION OVERLAY */}
+      {/* ==============================
+          LOGIN DROPDOWN
+         ============================== */}
       <div
-        className={`fixed inset-0 bg-black/40 backdrop-blur-sm transition-all duration-300 z-40 ${notify ? "opacity-100 visible" : "opacity-0 invisible"
-          }`}
-        onClick={() => setnotify(false)}
-      ></div>
-
-      {/* --- LOGIN BOX --- */}
-      <div className={`fixed bg-black/60 backdrop-blur-md text-white rounded-lg shadow-lg
-      transition-all duration-500 ease-in-out z-50 flex items-center justify-center
-      ${loggedIn ? "opacity-100 scale-100 visible right-4 top-16 sm:right-10 sm:top-20 w-[80%] sm:w-[50%] md:w-[35%] lg:w-[20%] h-[20%]"
-          : "opacity-0 scale-90 invisible right-4 top-0 w-0 h-0"}`}>
-        <p className="text-center text-sm sm:text-base">Login</p>
+        className={`fixed right-4 sm:right-16 top-[70px] bg-white text-black rounded-lg shadow-xl border w-48 p-4 z-50 transition-all duration-200 origin-top-right ${
+          showLogin ? "scale-100 opacity-100 visible" : "scale-95 opacity-0 invisible"
+        }`}
+      >
+        <p className="font-semibold mb-2">My Account</p>
+        <button className="w-full text-left py-2 px-2 hover:bg-gray-100 text-sm rounded transition">
+          Login
+        </button>
+        <button className="w-full text-left py-2 px-2 hover:bg-gray-100 text-sm rounded transition">
+          Register
+        </button>
       </div>
-
-    </nav>
+    </>
   );
 };
 
