@@ -12,6 +12,10 @@ import Notfound from "../404Notfound/Notfound";
 import ProductDetail from "../components/KickoffStyle/ProductDetail";
 import DetailShopMen from "../components/Shop/Shopman/DetailShopMen";
 import DetailShopwoman from "../components/Shop/ShopWoman/DetailShopwoman";
+import Shoes from "../components/Shoes/Shoes";
+import Accessories from "../components/Accessories/Accessories";
+import Sale from "../components/Sales/Sale";
+import ShopallCollection from "../components/Shop/ShopbyCollection/ShopallCollection";
 
 const Approutes = () => {
   return (
@@ -22,6 +26,10 @@ const Approutes = () => {
 
       <Route path="/product/men" element={<ShopMen />} />
       <Route path="/product/woman" element={<ShopWoman />} />
+      <Route path="/shoes" element={<Shoes/>}/>
+      <Route path="/accessories" element={<Accessories/>} />
+      <Route path="/all" element={<ShopallCollection/>}/>
+      <Route path="/sale" element={<Sale/>}/>
               {/* Detail Page */}
       <Route path="/product/detail/:id" element={<ProductDetail />} />
       <Route path="/product/men/detail/:id" element={<DetailShopMen />} />

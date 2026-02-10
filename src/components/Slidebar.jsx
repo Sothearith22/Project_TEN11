@@ -81,13 +81,13 @@ export default function Slidebar() {
                - md:h-[70vh]: Tablet
                - lg:h-[85vh]: Desktop (Full Hero experience)
             */}
-            <div className="relative w-full h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[85vh]">
+            <div className="relative w-full h-[40vh] sm:h-[60vh] md:h-[40vh] lg:h-[85vh]">
               
               {/* Image */}
               <img
                 src={item.src}
                 alt={`Slide ${index + 1}`}
-                className="w-full h-full object-cover object-top"
+                className="w-full h-full object-cover "
               />
 
               {/* Dark Gradient Overlay for text readability */}
@@ -95,13 +95,7 @@ export default function Slidebar() {
 
               {/* Content Wrapper */}
               <div className="absolute bottom-10 sm:bottom-16 md:bottom-24 w-full px-4 sm:px-10 flex flex-col items-center text-center">
-                
-                {/* Optional Title (Uncomment if needed) */}
-                {/* <h2 className="text-white text-3xl md:text-5xl font-bold mb-4 drop-shadow-lg tracking-wider">
-                  NEW ARRIVALS
-                </h2> */}
-
-                {/* Buttons Grid */}
+                {/* Buttons */}
                 <div className="grid grid-cols-2 gap-3 sm:gap-5 w-full max-w-[320px] sm:max-w-[450px]">
                   <Link
                     to="/product/men"
@@ -110,7 +104,7 @@ export default function Slidebar() {
                     text-xs sm:text-sm md:text-base font-bold tracking-widest uppercase 
                     transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,255,255,0.4)]"
                   >
-                    <span className="relative z-10">Shop Men</span>
+                    <span className="relative z-10 md:py-5">Shop Men</span>
                   </Link>
 
                   <Link
