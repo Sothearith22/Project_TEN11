@@ -77,20 +77,20 @@ const Navbar = () => {
             >
               <MdSearch />
             </button>
-
+{/* 
             <button
               className="text-2xl text-white p-2 rounded-full hover:bg-white/10 transition"
               onClick={() => toggleState(setShowNotify, showNotify)}
             >
               <MdNotifications />
-            </button>
+            </button> */}
 
-            <button
+            {/* <button
               className="text-2xl text-white p-2 rounded-full hover:bg-white/10 transition"
               onClick={() => toggleState(setShowLogin, showLogin)}
             >
               <MdPerson />
-            </button>
+            </button> */}
 
             <div className="relative">
               <button
@@ -130,7 +130,7 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* BACKDROP */}
+      BACKDROP
       <div
         className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-40 transition-opacity duration-300 ${
           showMenu || showNotify || showCart || showLogin
